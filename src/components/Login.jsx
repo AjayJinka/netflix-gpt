@@ -17,19 +17,28 @@ const Login = () => {
           <h3 className="font-bold text-2xl">
             {signIn ? "Sign In" : "Sign Up"}
           </h3>
+          {!signIn && (
+            <input
+              type="text"
+              id="full-name"
+              name="full-name"
+              placeholder="Enter Full Name"
+              className="rounded w-full p-2 bg-gray-300"
+            ></input>
+          )}
           <input
             type="text"
             id="email"
             name="email"
             placeholder="Email or phone number"
-            className="rounded w-full p-2"
+            className="rounded w-full p-2 bg-gray-300"
           />
           <input
             type="password"
             id="password"
             name="password"
             placeholder="password"
-            className="rounded w-full p-2"
+            className="rounded w-full p-2 bg-gray-300"
           />
           <button type="submit" className="bg-red-600 rounded w-full p-2">
             {signIn ? "Sign In" : "Sign Up"}
