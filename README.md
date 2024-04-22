@@ -2,6 +2,8 @@
 
 - Create project using vite
 - Configured tailwind css
+- Sign In Page
+- Browse Page
 
 # Features
 
