@@ -1,27 +1,23 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const fullNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const toggleSignIn = () => {
     setSignIn(!signIn);
-    clearForm();
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    const fullName = fullNameRef?.current?.value || "";
+    const email = emailRef?.current?.value || "";
+    const password = passwordRef?.current?.value || "";
     const message = checkValidData(signIn, fullName, email, password);
     setErrorMessage(message);
-  };
-  const clearForm = () => {
-    setFullName("");
-    setEmail("");
-    setPassword("");
-    setErrorMessage("");
   };
   return (
     <>
@@ -36,7 +32,7 @@ const Login = () => {
           }}
           className="flex flex-col justify-center items-center gap-y-4 p-8"
         >
-          <h3 className="font-bold text-2xl">
+          <h3 className="font-bold text-2xl text-white">
             {signIn ? "Sign In" : "Sign Up"}
           </h3>
           {!signIn && (
@@ -46,10 +42,7 @@ const Login = () => {
               name="full-name"
               placeholder="Enter Full Name"
               className="rounded w-full p-2 bg-gray-300"
-              onChange={(e) => {
-                setFullName(e.target.value);
-              }}
-              value={fullName}
+              ref={fullNameRef}
             ></input>
           )}
           <input
@@ -58,10 +51,7 @@ const Login = () => {
             name="email"
             placeholder="Email"
             className="rounded w-full p-2 bg-gray-300"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            value={email}
+            ref={emailRef}
           />
           <input
             type="password"
@@ -69,10 +59,7 @@ const Login = () => {
             name="password"
             placeholder="password"
             className="rounded w-full p-2 bg-gray-300"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-            value={password}
+            ref={passwordRef}
           />
           <button type="submit" className="bg-red-600 rounded w-full p-2">
             {signIn ? "Sign In" : "Sign Up"}
