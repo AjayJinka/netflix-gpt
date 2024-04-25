@@ -2,8 +2,18 @@
 
 - Create project using vite
 - Configured tailwind css
-- Sign In Page
-- Browse Page
+- Login Form
+- Sign Up Form
+- Routing of App
+- Form Validation
+- useRef Hook
+- Firebase Setup
+- Deploying our app to production
+- Create Sign Up user Account
+- Implement Sign In user Api
+- Created Redux Store with userSlice
+- Implemented Sign Out
+- Update Profile
 
 # Features
 

@@ -1,6 +1,15 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
@@ -8,6 +17,8 @@ const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const toggleSignIn = () => {
     setSignIn(!signIn);
   };
@@ -18,6 +29,46 @@ const Login = () => {
     const password = passwordRef?.current?.value || "";
     const message = checkValidData(signIn, fullName, email, password);
     setErrorMessage(message);
+    if (message) return;
+    if (!signIn) {
+      //Sign Up logic
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: fullName,
+            photoURL:
+              "https://avatars.githubusercontent.com/u/63995535?s=400&u=5c2c9f8c26b037799484a8cb492be2f00eeb42dc&v=4",
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(addUser({ uid, email, displayName, photoURL }));
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      //Sign In logic
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
   return (
     <>
