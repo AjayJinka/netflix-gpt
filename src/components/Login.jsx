@@ -7,9 +7,9 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { USER_AVATAR, LOGO } from "../utils/constants";
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
@@ -17,7 +17,6 @@ const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toggleSignIn = () => {
     setSignIn(!signIn);
@@ -37,13 +36,11 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: fullName,
-            photoURL:
-              "https://avatars.githubusercontent.com/u/63995535?s=400&u=5c2c9f8c26b037799484a8cb492be2f00eeb42dc&v=4",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(addUser({ uid, email, displayName, photoURL }));
-              navigate("/browse");
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -60,8 +57,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
-          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -74,7 +69,7 @@ const Login = () => {
     <>
       <Header />
       <div className="absolute">
-        <img src="https://assets.nflxext.com/ffe/siteui/vlv3/9f46b569-aff7-4975-9b8e-3212e4637f16/453ba2a1-6138-4e3c-9a06-b66f9a2832e4/IN-en-20240415-popsignuptwoweeks-perspective_alpha_website_small.jpg"></img>
+        <img src={LOGO}></img>
       </div>
       <div className="absolute left-0 right-0 mx-auto z-10 bg-black w-3/12 rounded mt-32 bg-opacity-80">
         <form
