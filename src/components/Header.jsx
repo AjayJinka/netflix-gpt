@@ -42,7 +42,7 @@ const Header = () => {
           className="w-44"
         ></img>
         {user && (
-          <div onClick={toggleDropdownMenu}>
+          <div onClick={toggleDropdownMenu} className="mr-4">
             <img
               src={photoURL}
               alt="photo"
