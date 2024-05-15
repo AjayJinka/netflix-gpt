@@ -51,7 +51,7 @@ const Header = () => {
           </div>
         )}
         <div
-          className={`absolute top-20 right-0 mr-4 border-4 font-bold cursor-pointer px-4 py-2 ${
+          className={`absolute top-20 right-0 mr-4 border-2 text-white font-bold cursor-pointer px-4 py-2 ${
             hide ? "hidden" : ""
           }`}
           onClick={logOut}
