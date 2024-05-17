@@ -28,6 +28,11 @@
 - Update store with Trailer Video Data
 - Embedded the Youtube video and make it autoplay with mute
 - Tailwind classes to make Main Container look awesome
+- GPT Search page added
+- Added gptSlice to handle data layer of GPT feature
+- Multilingual display of GPT Search bar
+- Added configSlice to handle data layer of multilingual functinality
+- Added language constants file to enable multilingual functionality in a modular fashion
 
 # Features
 
