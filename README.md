@@ -33,6 +33,11 @@
 - Multilingual display of GPT Search bar
 - Added configSlice to handle data layer of multilingual functinality
 - Added language constants file to enable multilingual functionality in a modular fashion
+- Integrated openai npm library
+- Made api call to openai and got results
+- openai results are given as input to TMDB api and got results
+- Shown movie recommendations basesd on user input using openai
+- Made the app responsive, app looks good on mobile devices also
 
 # Features
 

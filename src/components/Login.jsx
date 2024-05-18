@@ -69,9 +69,12 @@ const Login = () => {
     <>
       <Header />
       <div className="absolute">
-        <img src={BG_IMG}></img>
+        <img
+          src={BG_IMG}
+          className="h-screen object-cover md:h-auto md:object-contain"
+        ></img>
       </div>
-      <div className="absolute left-0 right-0 mx-auto z-10 bg-black w-3/12 rounded mt-32 bg-opacity-80">
+      <div className="absolute left-0 right-0 mx-auto z-10 bg-black w-full md:w-3/12 rounded mt-32 bg-opacity-80">
         <form
           onSubmit={(e) => {
             handleSubmit(e);

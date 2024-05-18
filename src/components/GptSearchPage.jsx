@@ -1,14 +1,19 @@
 import GptSearchBar from "./GptSearchBar";
 import { BG_IMG } from "../utils/constants";
+import GptMovieSuggestions from "./GptMovieSuggestions";
 
 const GptSearchPage = () => {
   return (
     <>
-      <div className="absolute -z-10">
-        <img src={BG_IMG}></img>
+      <div className="fixed -z-10">
+        <img
+          src={BG_IMG}
+          className="h-screen object-cover md:h-auto md:object-contain"
+        ></img>
       </div>
-      <div className="pt-32 mx-64 px-8">
+      <div>
         <GptSearchBar />
+        <GptMovieSuggestions />
       </div>
     </>
   );

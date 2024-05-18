@@ -4,7 +4,7 @@ import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { toggleGptView } from "../utils/gptSlice";
+import { clearGptMovieResults, toggleGptView } from "../utils/gptSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { selectLanguage } from "../utils/configSlice";
 
@@ -43,10 +43,10 @@ const Header = () => {
   };
   return (
     <>
-      <div className="absolute w-screen bg-gradient-to-b from-black z-10 flex justify-between items-center">
-        <img src={LOGO} className="w-44"></img>
+      <div className="fixed w-screen bg-gradient-to-b from-black z-10 flex flex-col md:flex-row md:justify-between items-center">
+        <img src={LOGO} className="w-44 bg-gradient-to-b from-black"></img>
         {user && (
-          <div className="flex gap-8">
+          <div className="flex gap-2 md:gap-8 items-center ml-8 md:ml-0">
             {showGptView && (
               <select
                 name="languages"
@@ -70,9 +70,10 @@ const Header = () => {
               className="bg-purple-900 rounded px-2 my-1 py-1 text-white font-bold"
               onClick={() => {
                 dispatch(toggleGptView());
+                dispatch(clearGptMovieResults());
               }}
             >
-              GPT Search
+              {showGptView ? "Home Page" : "GPT Search"}
             </button>
             <div onClick={toggleDropdownMenu} className="mr-4">
               <img
@@ -84,9 +85,9 @@ const Header = () => {
           </div>
         )}
         <div
-          className={`absolute top-20 right-0 mr-4 border-2 text-white font-bold cursor-pointer px-4 py-2 ${
+          className={`absolute top-28 md:top-16 right-0 mr-8 md:mr-4 border-2 text-white font-bold cursor-pointer px-2 py-1 ${
             hide ? "hidden" : ""
-          }`}
+          } rounded-lg`}
           onClick={logOut}
         >
           Sign out
